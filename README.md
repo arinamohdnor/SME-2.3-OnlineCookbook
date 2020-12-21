@@ -20,6 +20,7 @@ A Full Stack social recipe sharing app that let's you follow your friends' recip
 11a. If it's still scram, please make sure steps 4-7 are done correctly.
 
 If there are no problems so far,
+
 12. Create cookbookdb database by entering ```CREATE DATABASE cookbookdb;``` in the terminal.
 13. If there is no error, type ```\q``` to exit the postgres terminal.
 14. Enter ```psql -d cookbookdb -U postgres -f "{YOUR PROJECT DIRECTORY}\backend\db\cookbookdb.sql``` to dump database infos.
