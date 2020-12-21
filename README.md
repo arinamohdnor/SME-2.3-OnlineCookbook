@@ -6,6 +6,8 @@ A Full Stack social recipe sharing app that let's you follow your friends' recip
 
 ## Getting Started 
 
+Assuming ```npm, node.js, and whatever that this system needs i dont even know``` is installed,
+
 1. Enter (in cmd) ```npm install``` on both backend and frontend folders.
 2. Install latest version of postgresql @ https://www.postgresql.org, leave everything as default, set password as 'root'
 3. Head over to ```{POSTGRES_INSTALLATION_FOLDER}/data```.
