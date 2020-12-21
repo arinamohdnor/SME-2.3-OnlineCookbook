@@ -17,6 +17,7 @@ A Full Stack social recipe sharing app that let's you follow your friends' recip
 9. Open cmd to that directory, and enter ```psql -U postgres``` and put 'root' as password.
 10. Type in ```alter role postgres with password 'root';``` This is to refresh the password encryption from scram to md5.
 11. Check by entering ```SELECT rolname, rolpassword FROM "pg_authid";``` and make sure 'postgres' user has md5 in the beginning of it's password.
+
 11a. If it's still scram, please make sure steps 4-7 are done correctly.
 
 If there are no problems so far,
