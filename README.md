@@ -4,6 +4,28 @@ A Full Stack social recipe sharing app that let's you follow your friends' recip
 
 ![Alt text](./assets/cookbook.gif?raw=true "Landing Page")
 
+## Getting Started 
+
+1. Enter (in cmd) ```npm install``` on both backend and frontend folders.
+2. Install latest version of postgresql @ https://www.postgresql.org, leave everything as default, set password as 'root'
+3. Head over to ```{POSTGRES_INSTALLATION_FOLDER}/data```.
+4. Open ```postgresql.conf``` with any text editor.
+5. Look up ```password_encryption``` and change from scram-sha-256 to ```md5```. Close and save.
+6. Open ```pg_hba.conf``` with any text editor, scroll all the way down and change all "scram-sha-256" to ```md5```. Close and save.
+7. Search ```Services``` at Windows Search, and look for ```postgres-x65``` service. Right click > start (if it's already started, do restart).
+8. Head over to ```{POSTGRES_INSTALLATION_FOLDER}/bin```.
+9. Open cmd to that directory, and enter ```psql -U postgres``` and put 'root' as password.
+10. Type in ```alter role postgres with password 'root';``` This is to refresh the password encryption from scram to md5.
+11. Check by entering ```SELECT rolname, rolpassword FROM "pg_authid";``` and make sure 'postgres' user has md5 in the beginning of it's password.
+11a. If it's still scram, please make sure steps 4-7 are done correctly.
+
+If there are no problems so far,
+12. Create cookbookdb database by entering ```CREATE DATABASE cookbookdb;``` in the terminal.
+13. If there is no error, type ```\q``` to exit the postgres terminal.
+14. Enter ```psql -d cookbookdb -U postgres -f "{YOUR PROJECT DIRECTORY}\backend\db\cookbookdb.sql``` to dump database infos.
+15. Enter (in cmd) ```npm start``` on both backend and frontend folders (two separate cmds)
+16. System will automatically open up ```localhost:3000``` in browser, and you should be set!
+
 ## Features
 
 
@@ -65,42 +87,4 @@ Forking a recipe is make a copy of a recipe and put your own twist on it.
 View a user's recipes sorted by top and most recent. Also view the recipes they have favorited. The user profile page also provides information on how many followers and following a specific user has. 
 
 ![Alt text](./assets/cookbook-profile.gif?raw=true "Profile")
-
-## Getting Started 
-
-1. Enter (in cmd) ```npm install``` on both backend and frontend folders.
-2. Install latest version of postgresql @ https://www.postgresql.org, leave everything as default, set password as 'root'
-3. Head over to {POSTGRES_INSTALLATION_FOLDER}/data
-4. Open "postgresql.conf" with any text editor.
-5. Look up "password_encryption" and change from scram-sha-256 to "md5". Close and save.
-6. Open "pg_hba.conf" with any text editor, scroll all the way down and change all "scram-sha-256" to "md5". Close and save.
-7. Search "Services" at Windows Search, and look for "postgres-x65" service. Right click > start (if it's already started, do restart).
-8. Head over to {POSTGRES_INSTALLATION_FOLDER}/bin
-9. Open cmd to that directory, and enter "psql -U postgres" and put 'root' as password.
-10. Type in "alter role postgres with password 'root';" This is to refresh the password encryption from scram to md5.
-11. Check by entering "SELECT rolname, rolpassword FROM "pg_authid";" and make sure 'postgres' user has md5 in the beginning of it's password.
-11a. If it's still scram, please make sure steps 4-7 are done correctly.
-
-If there are no problems so far,
-12. Create cookbookdb database by entering "CREATE DATABASE cookbookdb;" in the terminal.
-13. If there is no error, type "\q" to exit the postgres terminal.
-14. Enter "psql -d cookbookdb -U postgres -f "{YOUR PROJECT DIRECTORY}\backend\db\cookbookdb.sql" to dump database infos.
-15. Enter (in cmd) "npm start" on both backend and frontend folders (two separate cmds)
-16. System will automatically open up "localhost:3000" in browser, and you should be set!
-
-## Authors 
-
-* [Luiza Maciejak](https://github.com/lmaciejak)
-* [Xavier Munroe](https://github.com/XavierC4Q)
-* [Umed Ibrohimov](https://github.com/hackrack)
-* [Eion Contaste](https://github.com/EroStark)
-* [Shaedon Blackman](https://github.com/sblackstealth)
-
-
-
-## Acknowledgements 
-
-* [Lev Izraelit](https://github.com/lizraeli)
-* [Reed Gaines](https://github.com/crymall)
-
 
