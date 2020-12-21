@@ -10,12 +10,12 @@ Assuming ```npm, node.js, and whatever that this system needs i dont even know``
 
 1. Enter (in cmd) ```npm install``` on both backend and frontend folders.
 2. Install latest version of postgresql @ https://www.postgresql.org, leave everything as default, set password as 'root'
-3. Head over to ```{POSTGRES_INSTALLATION_FOLDER}/data```.
+3. Head over to ```{POSTGRES_INSTALLATION_FOLDER}/data```. (normally C:\Program Files\PostgreSQL\13\data)
 4. Open ```postgresql.conf``` with any text editor.
 5. Look up ```password_encryption``` and change from scram-sha-256 to ```md5```. Close and save.
 6. Open ```pg_hba.conf``` with any text editor, scroll all the way down and change all "scram-sha-256" to ```md5```. Close and save.
 7. Search ```Services``` at Windows Search, and look for ```postgres-x65``` service. Right click > start (if it's already started, do restart).
-8. Head over to ```{POSTGRES_INSTALLATION_FOLDER}/bin```.
+8. Head over to ```{POSTGRES_INSTALLATION_FOLDER}/bin```. (normally C:\Program Files\PostgreSQL\13\bin)
 9. Open cmd to that directory, and enter ```psql -U postgres``` and put 'root' as password.
 10. Type in ```alter role postgres with password 'root';``` This is to refresh the password encryption from scram to md5.
 11. Check by entering ```SELECT rolname, rolpassword FROM "pg_authid";``` and make sure 'postgres' user has md5 in the beginning of it's password.
