@@ -27,11 +27,10 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: npm install frontend
-        uses: bahmutov/npm-install@v1
-        with:
-          working-directory: frontend
+        run: |
+          cd frontend
+          npm install
       - name: npm install backend
-        uses: bahmutov/npm-install@v1
-        with:
-          working-directory: backend
-
+        run: |
+          cd backend
+          npm install
