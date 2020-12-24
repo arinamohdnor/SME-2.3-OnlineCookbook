@@ -66,3 +66,11 @@ jobs:
           POSTGRES_HOST: postgres
           # The default PostgreSQL port
           POSTGRES_PORT: 5432
+      - name: Start backend and frontend service
+        run: |
+          cd backend
+          npm start
+      - name: Start backend and frontend service
+        run: |
+          cd frontend
+          npm start
