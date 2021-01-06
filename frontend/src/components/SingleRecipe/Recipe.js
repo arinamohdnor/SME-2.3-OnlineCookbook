@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router"
 import axios from "axios";
@@ -9,7 +10,9 @@ import veganicon from "../../images/vegan3.png";
 import vegetarianicon from "../../images/vegetarian3.png";
 import cheficon from "../../images/chefhat.png";
 import "./Recipe.css";
-
+import $ from "jquery";
+// import "nutrition-label-jquery-plugin/nutritionLabel-min";
+// import "nutrition-label-jquery-plugin/nutritionLabel-min.css"
 
 class SingleRecipe extends React.Component {
   constructor(props) {
@@ -38,6 +41,181 @@ class SingleRecipe extends React.Component {
 
   componentDidMount() {
     this.loadsRecipe();
+    axios
+      .get(`/users/singlerecipe/${this.props.user.recipeID}`)
+      .then(res => {
+        var postData = {
+          "query": res.data[0].recipe_name,
+          "num_servings": "1",
+          // "aggregate": "string",
+          // "line_delimited": false,
+          // "use_raw_foods": false,
+          // "include_subrecipe": false,
+          // "timezone": "US/Eastern",
+          // "consumed_at": null,
+          // "lat": null,
+          // "lng": null,
+          // "meal_type": 0,
+          // "use_branded_foods": false,
+          // "locale": "en_US"
+        };
+        let axiosConfig = {
+          headers: {
+              "Content-Type": "application/json", // request content type
+              "x-app-id": "93ad3166",
+              "x-app-key": "a75891f09ced04bd0b562c6c447772c8",
+          }
+        };
+        console.log("helo1");
+        
+        axios.post('https://trackapi.nutritionix.com/v2/natural/nutrients', postData, axiosConfig)
+        .then((res2) => {
+          // console.log("RESPONSE RECEIVED: ", res.data.foods[0].nf_calories);
+          console.log("RESPONSE RECEIVED: ", res2.data.foods[0]);
+          if ( res2.data.foods[0].nf_sugars == null) {
+            res2.data.foods[0].nf_sugars = 0;
+          }
+          $("#nutritional_label").html("" +
+          
+          "<section class='performance-facts' style='width:100%; margin-left:0; background-color: white'>" +
+            "<header class='performance-facts__header'>" +
+            " <h1 class='performance-facts__title'>Nutrition Facts - " + res.data[0].recipe_name + "</h1> " +  
+            " <p>Serving Size " + res2.data.foods[0].serving_qty + " cup (about " + res2.data.foods[0].serving_weight_grams + "g)" +
+            "</header>" +
+            "<table class='performance-facts__table'>" +
+            " <thead>" +
+            "   <tr>" +
+            "     <th colspan='3' class='small-info'>" +
+            "       Amount Per Serving" +
+            "     </th>" +
+            "   </tr>" +
+            " </thead>" +
+            " <tbody>" +
+            "   <tr>" +
+            "     <th colspan='2'>" +
+            "       <b>Calories</b>" +
+            "       " + res2.data.foods[0].nf_calories +
+            "     </th>" +
+            "     <td class='text-right'>" +
+            "       <b>% Daily Value*</b>" +
+            "     </td>" +
+            "   </tr>" +
+            "   <tr>" +
+            "   <th colspan='2'>" +
+            "       <b>Total Fat</b>" +
+            "       " + res2.data.foods[0].nf_total_fat + "g" +
+            "     </th>" +
+            "     <td class='text-right'>" +
+            "       <b>" + Math.round((res2.data.foods[0].nf_total_fat/32)*100) + "%</b>" +
+            "     </td>" +
+            "   </tr>" +
+            "   <tr>" +
+            "     <td class='blank-cell'>" +
+            "     </td>" +
+            "     <th>" +
+            "       &emsp; Saturated Fat" +
+            "       " + res2.data.foods[0].nf_saturated_fat + "g" +
+            "     </th>" +
+            "     <td class='text-right'>" +
+            "       <b>" + Math.round((res2.data.foods[0].nf_saturated_fat/10)*100) + "%</b>" +
+            "     </td>" +
+            "   </tr>" +
+            // "   <tr>" +
+            // "     <td class='blank-cell'>" +
+            // "     </td>" +
+            // "     <th>" +
+            // "       Trans Fat" +
+            // "       0g" +
+            // "     </th>" +
+            // "     <td class='text-right'>0%" +
+            // "     </td>" +
+            // "   </tr>" +
+            "   <tr>" +
+            "     <th colspan='2'>" +
+            "       <b>Cholesterol</b>" +
+            "       " + res2.data.foods[0].nf_cholesterol + "mg" +
+            "     </th>" +
+            "     <td class='text-right'>" +
+            "       <b>" + Math.round((res2.data.foods[0].nf_cholesterol/150)*100) + "%</b>" +
+            "     </td>" +
+            "   </tr>" +
+            "   <tr>" +
+            "     <th colspan='2'>" +
+            "       <b>Sodium</b>" +
+            "       " + res2.data.foods[0].nf_sodium + "mg" +
+            "     </th>" +
+            "     <td class='text-right'>" +
+            "       <b>" + Math.round((res2.data.foods[0].nf_sodium/1200)*100) + "%</b>" +
+            "     </td>" +
+            "   </tr>" +
+            "  <tr>" +
+            "     <th colspan='2'>" +
+            "       <b>Total Carbohydrate</b>" +
+            "       " + res2.data.foods[0].nf_total_carbohydrate + "g" +
+            "     </th>" +
+            "     <td class='text-right'>" +
+            "       <b>" + Math.round((res2.data.foods[0].nf_total_carbohydrate/150)*100) + "%</b>" +
+            "     </td>" +
+            "  </tr>" +
+            "   <tr>" +
+            "     <td class='blank-cell'>" +
+            "     </td>" +
+            "     <th>" +
+            "       &emsp; Dietary Fiber" +
+            "       " + res2.data.foods[0].nf_dietary_fiber + "g" +
+            "    </th>" +
+            "     <td class='text-right'>" +
+            "       <b>" + Math.round((res2.data.foods[0].nf_dietary_fiber/12)*100) + "%</b>" +
+            "     </td>" +
+            "   </tr>" +
+            "   <tr>" +
+            "     <td class='blank-cell'>" +
+            "     </td>" +
+            "     <th>" +
+            "       &emsp; Sugars" +
+            "       " + res2.data.foods[0].nf_sugars + "g" +
+            "     </th>" +
+            "     <td class='text-right'>" +
+            "     <b>-</b></td>" +
+            "   </tr>" +
+            "   <tr class='thick-end'>" +
+            "     <th colspan='2'>" +
+            "       <b>Protein</b>" +
+            "       " + res2.data.foods[0].nf_protein + "g" +
+            "     </th>" +
+            "     <td class='text-right'>" +
+            "     <b>" + Math.round((res2.data.foods[0].nf_protein/50)*100) + "%</b></td>" +
+            "   </tr>" +
+            " </tbody>" +
+            "</table>" +
+                        
+            "<p style='font-size:1rem'>* <i>Percent Daily Values are based on a 2,000 calorie diet. Your daily values may be higher or lower depending on your calorie needs:</i></p>" +
+          
+          
+          
+            "<p style='font-size:1rem' class='text-center'>" +
+
+            " Calories per gram:" +
+            " Fat 9" +
+            " &bull;" +
+            " Carbohydrate 4" +
+            " &bull;" +
+            " Protein 4" +
+            "</p>" +
+            
+            "</section>");
+          
+            // res.data.foods[0].nf_calories);
+        })
+        .catch((err) => {
+          console.log("AXIOS ERROR: ", err);
+        })
+        console.log("helo2");
+      })
+    
+    
+
+
   }
 
   componentWillReceiveProps(props) {
@@ -288,6 +466,45 @@ class SingleRecipe extends React.Component {
       });
   };
 
+  test = e => {
+
+    // var postData = {
+    //   "query": "chicken",
+    //   "num_servings": "1",
+    //   "aggregate": "string",
+    //   "line_delimited": false,
+    //   "use_raw_foods": false,
+    //   "include_subrecipe": false,
+    //   "timezone": "US/Eastern",
+    //   "consumed_at": null,
+    //   "lat": null,
+    //   "lng": null,
+    //   "meal_type": 0,
+    //   "use_branded_foods": false,
+    //   "locale": "en_US"
+    // };
+    
+    // let axiosConfig = {
+    //   headers: {
+    //       "Content-Type": "application/json", // request content type
+    //       "x-app-id": "93ad3166",
+    //       "x-app-key": "a75891f09ced04bd0b562c6c447772c8",
+    //   }
+    // };
+    // console.log("helo1");
+    
+    // axios.post('https://trackapi.nutritionix.com/v2/natural/nutrients', postData, axiosConfig)
+    // .then((res) => {
+    //   console.log("RESPONSE RECEIVED: ", res);
+    //   // $("#nutritional_label").html(res);
+    // })
+    // .catch((err) => {
+    //   console.log("AXIOS ERROR: ", err);
+    // })
+    // console.log("helo2");
+
+  };
+
   handleClickEditRecipe = (e) => {
     <Redirect push to="/cb/editRecipe/:recipeID" />
   }
@@ -459,6 +676,8 @@ class SingleRecipe extends React.Component {
                   <button className="singleRecipeSubmit" onClick={this.handleSubmitFork}>Fork</button>
                 : ""): ""}
                 </div>
+              <div id="nutritional_label"></div>
+
                 <div>
                 { forkedFrom? <p>forked from {forkedFrom}</p>: ""} <br/>
                 { forkList.length !== 0 ? <ForkedBy forks={forkList} /> : ''}
@@ -466,7 +685,20 @@ class SingleRecipe extends React.Component {
 
             </div>
 
-            <div className="singleRecipeLeft">
+           <div className="singleRecipeLeft">
+            {/* <h3 className="singleRecipeIngredientsTitle"> Nutritional Info </h3>
+              <ul type="none">
+              <button onClick={this.test} id={comment.comments_id} className="singleRecipeCommentEdit">
+                          Test
+                        </button>
+                {ingredients? ingredients.map(ingredient => (
+                      <li className="ingredientList" key={Math.random()}>
+                        {ingredient.amount} {ingredient.name}
+                      </li>
+                    ))
+                  :"There are no any ingredients"}
+              </ul> */}
+
               <h3 className="singleRecipeIngredientsTitle"> Ingredients </h3>
               <ul type="none">
                 {ingredients? ingredients.map(ingredient => (

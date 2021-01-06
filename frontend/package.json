@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "jquery": "^3.5.1",
+    "nutrition-label-jquery-plugin": "^11.0.4",
     "react": "^16.2.0",
     "react-autosuggest": "^9.3.4",
     "react-bootstrap-carousel": "^2.3.0",
