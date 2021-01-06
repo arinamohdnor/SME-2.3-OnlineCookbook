@@ -231,18 +231,11 @@ class SingleRecipe extends React.Component {
         // })
 
         
-        let running = 10;
-        let walking = 10;
-        var postDataCalories = {
-          "query": `${running} minutes run and ${walking} minutes walking`,
-          "gender":"male",
-          // "nf_calories": 363.62,
-          "weight_kg":63.5,
-          "height_cm":167.64,
-          "age":30
-        };
+        var running = 10;
+        var walking = 10;
+        var postDataCalories;
 
-        let axiosConfig2 = {
+        var axiosConfig2 = {
           headers: {
               "Content-Type": "application/json", // request content type
               "x-app-id": "940bc30e",
@@ -250,7 +243,38 @@ class SingleRecipe extends React.Component {
           }
         };
 
-      
+        var limit = 0;
+        while (limit == 0) {
+          // line 249 sampai line 258 ni patutnya bawak masuk kat line 271, tapi since dia punya value takleh bawa sampai keluar 'then', itu problem tu, if kau boleh figure out cane nak bawa keluar variable updated dari 'then' tu kira settle dah
+          running = running + 20;
+          console.log("restart");
+          postDataCalories = {
+            "query": `${running} minutes run and ${walking} minutes walking`,
+            "gender":"male",
+            // "nf_calories": 363.62,
+            "weight_kg":63.5,
+            "height_cm":167.64,
+            "age":30
+          };
+          console.log(`${running} minutes run and ${walking} minutes walking`);
+          axios.post('https://trackapi.nutritionix.com/v2/natural/exercise', postDataCalories, axiosConfig2)
+          .then((res3) => {
+            console.log("exercise RESPONSE RECEIVED: ", res3);
+            let caloriesFood = res2.data.foods[0].nf_calories;
+            let caloriesExercise = res3.data.exercises[0].nf_calories;
+            let caloriesDifferences = caloriesFood - caloriesExercise;
+            console.log("hi " + caloriesDifferences);
+            if (caloriesDifferences < 50){
+              console.log('done');
+              limit = 1;
+            } else {
+              console.log('nope');
+            }
+          })
+          limit = 1; //patut buang ni, tapi in a way macam dapatkan value from line 268, if kau boleh bawa keluar that value, boleh cancel the loop and hidup aman
+        }
+
+
         // function axiosPostExercise(){
         //   axios.post('https://trackapi.nutritionix.com/v2/natural/exercise', postDataCalories, axiosConfig2)
         //   .then((res3) => {
