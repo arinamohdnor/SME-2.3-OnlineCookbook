@@ -266,11 +266,37 @@ class SingleRecipe extends React.Component {
             var caloriesDifferences = caloriesFood - caloriesExercise;
             console.log("hi " + caloriesDifferences);
             if (caloriesDifferences < 50){
+              $("#calories_burned").html("" +
+              "<br><div class='rounded-box burn-calories ng-scope'>" +
+              "<div class='box-title ng-binding'> How long would it take to burn off " + caloriesFood + " KCal?" +
+              "</div>" +
+              "<div class='box-content'>" +
+              "  <table class='table m-b-none'>" +
+              "    <tr>" +
+              "      <td>Running" +
+              //  + res3.data.exercises[0].name + 
+               "</td>" +
+              "      <td class='ng-binding'>" + res3.data.exercises[0].duration_min + " minutes</td>" +
+              "    </tr>" +
+              "   <tr>" +
+              "     <td>Walking" +
+              //  + res3.data.exercises[1].name + 
+               "</td>" +
+              "     <td class='ng-binding'>" + res3.data.exercises[1].duration_min + " minutes</td>" +
+              "   </tr>" +
+              "   </tbody>" +
+              " </table>" +
+              " <div>" +
+              " <small> Values estimated based on person weighing 140 lbs." +
+              "   </small>" +
+              " </div>" +
+              "</div>" +
+              "</div>");
               console.log('done');
               limit = 1;
             } else {
               console.log('nope');
-              running = running + 20;
+              running = running + 10;
               console.log("restart");
               postDataCalories = {
                 "query": `${running} minutes run and ${walking} minutes walking`,
@@ -331,34 +357,34 @@ class SingleRecipe extends React.Component {
         // axiosPostExercise();
         
 
-        axios.post('https://trackapi.nutritionix.com/v2/natural/exercise', postDataCalories, axiosConfig2)
-        .then((res3) => {
-          console.log("RESPONSE RECEIVED: ", res3); 
-          let caloriesFood = res2.data.foods[0].nf_calories;
-        $("#calories_burned").html("" +
+        // axios.post('https://trackapi.nutritionix.com/v2/natural/exercise', postDataCalories, axiosConfig2)
+        // .then((res3) => {
+        //   console.log("RESPONSE RECEIVED: ", res3); 
+        //   let caloriesFood = res2.data.foods[0].nf_calories;
+        // $("#calories_burned").html("" +
           
-              "<br><div class='rounded-box burn-calories ng-scope'>" +
-              "<div class='box-title ng-binding'> How long would it take to burn off " + caloriesFood + " KCal?" +
-              "</div>" +
-              "<div class='box-content'>" +
-              "  <table class='table m-b-none'>" +
-              "    <tr>" +
-              "      <td>" + res3.data.exercises[0].name + "</td>" +
-              "      <td class='ng-binding'>" + res3.data.exercises[0].duration_min + " minutes</td>" +
-              "    </tr>" +
-              "   <tr>" +
-              "     <td>" + res3.data.exercises[1].name + "</td>" +
-              "     <td class='ng-binding'>" + res3.data.exercises[1].duration_min + " minutes</td>" +
-              "   </tr>" +
-              "   </tbody>" +
-              " </table>" +
-              " <div>" +
-              " <small> Values estimated based on person weighing 140 lbs." +
-              "   </small>" +
-              " </div>" +
-              "</div>" +
-              "</div>");   
-            })
+        //       "<br><div class='rounded-box burn-calories ng-scope'>" +
+        //       "<div class='box-title ng-binding'> How long would it take to burn off " + caloriesFood + " KCal?" +
+        //       "</div>" +
+        //       "<div class='box-content'>" +
+        //       "  <table class='table m-b-none'>" +
+        //       "    <tr>" +
+        //       "      <td>" + res3.data.exercises[0].name + "</td>" +
+        //       "      <td class='ng-binding'>" + res3.data.exercises[0].duration_min + " minutes</td>" +
+        //       "    </tr>" +
+        //       "   <tr>" +
+        //       "     <td>" + res3.data.exercises[1].name + "</td>" +
+        //       "     <td class='ng-binding'>" + res3.data.exercises[1].duration_min + " minutes</td>" +
+        //       "   </tr>" +
+        //       "   </tbody>" +
+        //       " </table>" +
+        //       " <div>" +
+        //       " <small> Values estimated based on person weighing 140 lbs." +
+        //       "   </small>" +
+        //       " </div>" +
+        //       "</div>" +
+        //       "</div>");   
+        //     })
         })
       })
       .catch((err) => {
