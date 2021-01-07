@@ -243,6 +243,13 @@ class SingleRecipe extends React.Component {
           }
         };
 
+        const convertMinsToTime = (mins) => {
+          let hours = Math.floor(mins / 60);
+          let minutes = mins % 60;
+          minutes = minutes < 10 ? '0' + minutes : minutes;
+          return `${hours ? `${hours} hours:` : ' '}${minutes} minutes`;
+        }
+
       async function runLoop() {
         var limit = 0;
         var running = 20;
@@ -266,6 +273,8 @@ class SingleRecipe extends React.Component {
             var caloriesDifferences = caloriesFood - caloriesExercise;
             console.log("hi " + caloriesDifferences);
             if (caloriesDifferences < 50){
+              var caloriesRun = res3.data.exercises[0].duration_min;
+              var caloriesWalk = (caloriesRun)*2;
               $("#calories_burned").html("" +
               "<br><div class='rounded-box burn-calories ng-scope'>" +
               "<div class='box-title ng-binding'> How long would it take to burn off " + caloriesFood + " KCal?" +
@@ -273,16 +282,16 @@ class SingleRecipe extends React.Component {
               "<div class='box-content'>" +
               "  <table class='table m-b-none'>" +
               "    <tr>" +
-              "      <td>Running" +
+              "      <td>Running (6mph)" +
               //  + res3.data.exercises[0].name + 
                "</td>" +
-              "      <td class='ng-binding'>" + res3.data.exercises[0].duration_min + " minutes</td>" +
+              "      <td class='ng-binding'>" + convertMinsToTime(caloriesRun) + "</td>" +
               "    </tr>" +
               "   <tr>" +
-              "     <td>Walking" +
+              "     <td>Walking (3mph)" +
               //  + res3.data.exercises[1].name + 
                "</td>" +
-              "     <td class='ng-binding'>" + res3.data.exercises[1].duration_min + " minutes</td>" +
+              "     <td class='ng-binding'>" + convertMinsToTime(caloriesWalk) + "</td>" +
               "   </tr>" +
               "   </tbody>" +
               " </table>" +
@@ -855,8 +864,6 @@ class SingleRecipe extends React.Component {
                 : ""): ""}
                 </div>
               <div id="nutritional_label"></div>
-              <div id="calories_burned"></div>
-
                 <div>
                 { forkedFrom? <p>forked from {forkedFrom}</p>: ""} <br/>
                 { forkList.length !== 0 ? <ForkedBy forks={forkList} /> : ''}
@@ -890,6 +897,7 @@ class SingleRecipe extends React.Component {
 
               <h3 className="singleRecipeIngredientsTitle">Directions</h3>
               <p> {recipe}</p>
+              <div id="calories_burned"></div>
               <h3 className="singleRecipeIngredientsTitle">
                 {" "}
                 Leave a comment{" "}
