@@ -1,3 +1,4 @@
+![Main Branch](https://github.com/arinamohdnor/SME-2.3-OnlineCookbook/workflows/Main%20Branch/badge.svg)
 # Cookbook
 
 A Full Stack social recipe sharing app that let's you follow your friends' recipes, fork them (put your own spin on a recipe), and create cooking events that are referred to as potlucks. 
