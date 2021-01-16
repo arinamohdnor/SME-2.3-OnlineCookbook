@@ -84,6 +84,7 @@ class UserEdit extends React.Component{
             <div className="formStyle">
             <h1 className="formHeader">Edit Profile Information for {user.username}</h1>
 
+            <form onSubmit={this.handleSubmit}>
 
           <div className="formSection">
               <div className="formInnerWrap">
@@ -91,11 +92,13 @@ class UserEdit extends React.Component{
                           New Username: {" "}
                           <input
                             type='text'
-                            value={usernameInput}
                             name='usernameInput'
                             onChange={this.userInput}
+                            value={usernameInput}
+                            className="formInput"
+                            required
                             />
-                        </label>
+                      </label>
                 </div>
             </div>
 
@@ -105,12 +108,14 @@ class UserEdit extends React.Component{
                 <label className="formlabels">
                     New Profile Image: {" "}
                     <input
-                      type='text'
-                      value={imageInput}
+                      type='image'
                       name='imageInput'
                       onChange={this.userInput}
+                      value={imageInput}
+                      className="formInput"
+                      required
                       />
-                  </label>
+                </label>
               </div>
             </div>
 
@@ -121,9 +126,11 @@ class UserEdit extends React.Component{
                   New First Name: {" "}
                   <input
                     type='text'
-                    value={firstnameInput}
                     name='firstnameInput'
                     onChange={this.userInput}
+                    value={firstnameInput}
+                    className="formInput"
+                    required
                     />
                 </label>
               </div>
@@ -135,10 +142,12 @@ class UserEdit extends React.Component{
                 <label className="formlabels">
                   New Last Name: {" "}
                   <input
-                    type='text'
-                    value={lastnameInput}
+                    type='text'   
                     name='lastnameInput'
                     onChange={this.userInput}
+                    value={lastnameInput}
+                    className="formInput"
+                    required
                     />
                 </label>
               </div>
@@ -151,10 +160,11 @@ class UserEdit extends React.Component{
                   <label className="formlabels">
                     New Email: {" "}
                     <input
-                      type='text'
-                      value={emailInput}
+                      type='email'
                       name='emailInput'
                       onChange={this.userInput}
+                      value={emailInput}
+                      required
                       />
                   </label>
                 </div>
@@ -162,9 +172,9 @@ class UserEdit extends React.Component{
             </div>
 
 
-              {message}
             <button onClick={this.submitEdit} className="formButton">Submit Changes</button>
             <Link to={path}>Back to Profile</Link>
+            </form>
             </div>
           </div>
         )

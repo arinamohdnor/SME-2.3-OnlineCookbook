@@ -89,7 +89,7 @@ class SingleRecipe extends React.Component {
           }
         };
         console.log("helo1");
-
+        
         axios.post('https://trackapi.nutritionix.com/v2/natural/nutrients', postData, axiosConfig)
         .then((res2) => {
           // console.log("RESPONSE RECEIVED: ", res.data.foods[0].nf_calories);
@@ -210,11 +210,11 @@ class SingleRecipe extends React.Component {
             "   </tr>" +
             " </tbody>" +
             "</table>" +
-
+                        
             "<p style='font-size:1rem'>* <i>Percent Daily Values are based on a 2,000 calorie diet. Your daily values may be higher or lower depending on your calorie needs:</i></p>" +
-
-
-
+          
+          
+          
             "<p style='font-size:1rem' class='text-center'>" +
 
             " Calories per gram:" +
@@ -224,13 +224,13 @@ class SingleRecipe extends React.Component {
             " &bull;" +
             " Protein 4" +
             "</p>" +
-
+            
             "</section>");
 
             // res.data.foods[0].nf_calories);
         // })
 
-
+        
         var running = 10;
         var walking = 10;
         var postDataCalories;
@@ -283,13 +283,13 @@ class SingleRecipe extends React.Component {
               "  <table class='table m-b-none'>" +
               "    <tr>" +
               "      <td>Running (6mph)" +
-              //  + res3.data.exercises[0].name +
+              //  + res3.data.exercises[0].name + 
                "</td>" +
               "      <td class='ng-binding'>" + convertMinsToTime(caloriesRun) + "</td>" +
               "    </tr>" +
               "   <tr>" +
               "     <td>Walking (3mph)" +
-              //  + res3.data.exercises[1].name +
+              //  + res3.data.exercises[1].name + 
                "</td>" +
               "     <td class='ng-binding'>" + convertMinsToTime(caloriesWalk) + "</td>" +
               "   </tr>" +
@@ -333,7 +333,7 @@ class SingleRecipe extends React.Component {
         //     let caloriesDifferences = caloriesFood - caloriesExercise;
         //     if (caloriesDifferences < caloriesDifferences - 10 || caloriesDifferences > caloriesDifferences + 10){
         //       $("#calories_burned").html("" +
-
+          
         //       "<br><div class='rounded-box burn-calories ng-scope'>" +
         //       "<div class='box-title ng-binding'> How long would it take to burn off " + caloriesFood + " KCal?" +
         //       "</div>" +
@@ -364,14 +364,14 @@ class SingleRecipe extends React.Component {
         // }
 
         // axiosPostExercise();
-
+        
 
         // axios.post('https://trackapi.nutritionix.com/v2/natural/exercise', postDataCalories, axiosConfig2)
         // .then((res3) => {
-        //   console.log("RESPONSE RECEIVED: ", res3);
+        //   console.log("RESPONSE RECEIVED: ", res3); 
         //   let caloriesFood = res2.data.foods[0].nf_calories;
         // $("#calories_burned").html("" +
-
+          
         //       "<br><div class='rounded-box burn-calories ng-scope'>" +
         //       "<div class='box-title ng-binding'> How long would it take to burn off " + caloriesFood + " KCal?" +
         //       "</div>" +
@@ -392,7 +392,7 @@ class SingleRecipe extends React.Component {
         //       "   </small>" +
         //       " </div>" +
         //       "</div>" +
-        //       "</div>");
+        //       "</div>");   
         //     })
         })
       })
@@ -400,7 +400,7 @@ class SingleRecipe extends React.Component {
         console.log("AXIOS ERROR: ", err);
       })
       console.log("helo2");
-
+    
 
 
   }
