@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "check npm version": "npm -v && node -v",
     "start": "cd backend && npm install && node ./bin/www",
     "heroku-postbuild": "cd frontend && npm install --only=dev && npm install && npm run build"
   }
