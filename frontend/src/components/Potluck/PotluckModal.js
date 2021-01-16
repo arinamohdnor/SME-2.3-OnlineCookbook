@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 import axios from "axios"
 import { Redirect } from "react-router-dom"
 
+
 const customStyles = {
   content : {
     top                   : '50%',
@@ -75,7 +76,7 @@ class PotluckModal extends Component {
           message: `${err.response.data}`
         });
       });
-  }
+    }
 
   render() {
     console.log('props user', this.props.user)
@@ -91,6 +92,7 @@ class PotluckModal extends Component {
         onRequestClose={this.closeModal}
         style={customStyles}
       >
+
       <button className="xButton" onClick={this.closeModal}>x</button>
         <h2 ref={subtitle => this.subtitle = subtitle}>Create a new potluck</h2>
         <form onSubmit={this.handleLoginFormSubmit}>
@@ -108,5 +110,6 @@ class PotluckModal extends Component {
     );
   }
 }
+
 
 export default PotluckModal;
