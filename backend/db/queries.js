@@ -261,18 +261,11 @@ function getAllFollowersRecipes(req, res, next) {
     .any(
       `SELECT recipe_name, recipes.recipe_id, description,
          recipe, recipe_name, img, recipe_timestamp,
-         isVegeterian, isVegan,
-         COUNT(favorites.recipe_id)
-         AS favorites_count, users.username, users.user_id
+         isVegeterian, isVegan, users.username, users.user_id
          FROM recipes
-         INNER JOIN favorites
-         ON recipes.recipe_id = favorites.recipe_id
-         INNER JOIN users
+         INNER JOIN users\t
          ON recipes.user_id = users.user_id
-         WHERE recipes.user_id
-         IN (SELECT followee_id
-         FROM followings
-         WHERE follower_id =${req.params.userID})
+          WHERE recipes.recipe_id IN (SELECT recipes.recipe_id FROM recipes)
          GROUP BY recipes.recipe_id, users.user_id
          ORDER BY recipe_timestamp DESC;`
     )
@@ -1165,16 +1158,6 @@ function editIngredients(req, res, next) {
 }
 
 function editRecipeComment(req, res, next) {
-  if (req.body.comment.length === 0) {
-    return db
-      .none(`DELETE FROM comments WHERE comments_id=${req.params.commentID}`)
-      .then(data => {
-        res.json("deleted");
-      })
-      .catch(error => {
-        res.json(error);
-      });
-  } else {
     return db
       .none(
         `UPDATE comments
@@ -1188,7 +1171,7 @@ function editRecipeComment(req, res, next) {
       .catch(error => {
         res.json(error);
       });
-  }
+
 }
 
 function deleteIngredients(req, res, next) {
@@ -1222,6 +1205,18 @@ function deleteComments(req, res, next) {
     .catch(err => {
       res.json(err);
     });
+}
+
+
+function deleteRecipeComment(req, res, next) {
+  return db
+      .none(`DELETE FROM comments WHERE comments_id=${req.params.commentID}`)
+      .then(data => {
+        res.json("deleted");
+      })
+      .catch(error => {
+        res.json(error);
+      });
 }
 
 function deleteFavorites(req, res, next) {
@@ -1374,4 +1369,5 @@ module.exports = {
   seenFavoritesChangeByUserId,
   seenFollowersChangeByUserId,
   seenPotluckChangeByUserID,
+  deleteRecipeComment
 };

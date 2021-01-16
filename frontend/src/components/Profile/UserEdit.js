@@ -2,8 +2,8 @@ import React from "react"
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import Searchbar from "../Search/SearchBar";
-
 class UserEdit extends React.Component{
+
   constructor(props){
     super(props)
 
@@ -16,6 +16,18 @@ class UserEdit extends React.Component{
       imageInput: '',
       message: ''
     }
+
+    if(!this.props.user){
+      axios
+          .get('/users')
+          .then(res => {
+            console.log(res.data[0]);
+            this.setState({ user: res.data[0]});
+          })
+          .catch(error => {
+            console.log('error in edit page')
+          })
+    }
   }
 
   componentDidMount() {
@@ -23,7 +35,12 @@ class UserEdit extends React.Component{
       axios
         .get('/users')
         .then(res => {
-          this.setState({ user: res.data[0]})
+          this.setState({ user: res.data[0]});
+          console.log(res.data[0].username);
+          this.state.usernameInput = res.data[0].username;
+          this.state.firstnameInput = res.data[0].first_name;
+          this.state.lastnameInput = res.data[0].last_name;
+          this.state.emailInput = res.data[0].email;
         })
         .catch(error => {
           console.log('error in edit page')
@@ -51,11 +68,6 @@ class UserEdit extends React.Component{
       })
         .then(() => {
           this.setState({
-            usernameInput: '',
-            firstnameInput: '',
-            lastnameInput: '',
-            emailInput: '',
-            imageInput: '',
             message: 'Changes done!'
           })
         })
