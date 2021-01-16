@@ -1,9 +1,16 @@
 var pgp = require("pg-promise")({});
-// var connectionString = process.env.DATABASE_URL;
+var connectionString = process.env.DATABASE_URL;
 // var connectionString = "postgres://localhost/cookbookdb";
-var connectionString = "postgres://postgres:root@localhost:5432/cookbookdb";
+var local = "postgres://postgres:root@localhost:5432/cookbookdb";
 
-var db = pgp(connectionString);
+var db;
+if(connectionString===undefined){
+    db = pgp(local);
+}
+else{
+    db = pgp(connectionString);
+}
+
 
 db.connect()
     .then(obj => {
