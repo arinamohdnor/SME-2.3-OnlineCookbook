@@ -73,7 +73,7 @@ class SingleRecipe extends React.Component {
         //     testVarA = testVarA + 1;
         //     console.log(testVarA);
         //     // test();
-        //   } else {            
+        //   } else {
         //     console.log(testVarDifferences);
         //     console.log(testVar);
         //   }
@@ -89,7 +89,7 @@ class SingleRecipe extends React.Component {
           }
         };
         console.log("helo1");
-        
+
         axios.post('https://trackapi.nutritionix.com/v2/natural/nutrients', postData, axiosConfig)
         .then((res2) => {
           // console.log("RESPONSE RECEIVED: ", res.data.foods[0].nf_calories);
@@ -98,10 +98,10 @@ class SingleRecipe extends React.Component {
             res2.data.foods[0].nf_sugars = 0;
           }
           $("#nutritional_label").html("" +
-          
+
           "<section class='performance-facts' style='width:100%; margin-left:0; background-color: white'>" +
             "<header class='performance-facts__header'>" +
-            " <h1 class='performance-facts__title'>Nutrition Facts - " + res.data[0].recipe_name + "</h1> " +  
+            " <h1 class='performance-facts__title'>Nutrition Facts - " + res.data[0].recipe_name + "</h1> " +
             " <p>Serving Size " + res2.data.foods[0].serving_qty + " cup (about " + res2.data.foods[0].serving_weight_grams + "g)" +
             "</header>" +
             "<table class='performance-facts__table'>" +
@@ -210,11 +210,11 @@ class SingleRecipe extends React.Component {
             "   </tr>" +
             " </tbody>" +
             "</table>" +
-                        
+
             "<p style='font-size:1rem'>* <i>Percent Daily Values are based on a 2,000 calorie diet. Your daily values may be higher or lower depending on your calorie needs:</i></p>" +
-          
-          
-          
+
+
+
             "<p style='font-size:1rem' class='text-center'>" +
 
             " Calories per gram:" +
@@ -224,13 +224,13 @@ class SingleRecipe extends React.Component {
             " &bull;" +
             " Protein 4" +
             "</p>" +
-            
+
             "</section>");
-          
+
             // res.data.foods[0].nf_calories);
         // })
 
-        
+
         var running = 10;
         var walking = 10;
         var postDataCalories;
@@ -283,13 +283,13 @@ class SingleRecipe extends React.Component {
               "  <table class='table m-b-none'>" +
               "    <tr>" +
               "      <td>Running (6mph)" +
-              //  + res3.data.exercises[0].name + 
+              //  + res3.data.exercises[0].name +
                "</td>" +
               "      <td class='ng-binding'>" + convertMinsToTime(caloriesRun) + "</td>" +
               "    </tr>" +
               "   <tr>" +
               "     <td>Walking (3mph)" +
-              //  + res3.data.exercises[1].name + 
+              //  + res3.data.exercises[1].name +
                "</td>" +
               "     <td class='ng-binding'>" + convertMinsToTime(caloriesWalk) + "</td>" +
               "   </tr>" +
@@ -333,7 +333,7 @@ class SingleRecipe extends React.Component {
         //     let caloriesDifferences = caloriesFood - caloriesExercise;
         //     if (caloriesDifferences < caloriesDifferences - 10 || caloriesDifferences > caloriesDifferences + 10){
         //       $("#calories_burned").html("" +
-          
+
         //       "<br><div class='rounded-box burn-calories ng-scope'>" +
         //       "<div class='box-title ng-binding'> How long would it take to burn off " + caloriesFood + " KCal?" +
         //       "</div>" +
@@ -364,14 +364,14 @@ class SingleRecipe extends React.Component {
         // }
 
         // axiosPostExercise();
-        
+
 
         // axios.post('https://trackapi.nutritionix.com/v2/natural/exercise', postDataCalories, axiosConfig2)
         // .then((res3) => {
-        //   console.log("RESPONSE RECEIVED: ", res3); 
+        //   console.log("RESPONSE RECEIVED: ", res3);
         //   let caloriesFood = res2.data.foods[0].nf_calories;
         // $("#calories_burned").html("" +
-          
+
         //       "<br><div class='rounded-box burn-calories ng-scope'>" +
         //       "<div class='box-title ng-binding'> How long would it take to burn off " + caloriesFood + " KCal?" +
         //       "</div>" +
@@ -392,7 +392,7 @@ class SingleRecipe extends React.Component {
         //       "   </small>" +
         //       " </div>" +
         //       "</div>" +
-        //       "</div>");   
+        //       "</div>");
         //     })
         })
       })
@@ -400,7 +400,7 @@ class SingleRecipe extends React.Component {
         console.log("AXIOS ERROR: ", err);
       })
       console.log("helo2");
-    
+
 
 
   }
@@ -562,6 +562,7 @@ class SingleRecipe extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    console.log(this.state.comments_id);
     if (this.state.comments_id) {
       axios
         .patch(`/users/editComment/${this.state.comments_id}`, {
@@ -652,6 +653,46 @@ class SingleRecipe extends React.Component {
         console.log(err);
       });
   };
+
+    handleClickDeleteComment = e => {
+        axios
+            .get(`/users/getsinglecomment/${e.target.id}`)
+            .then(res => {
+            this.deleteComment(res.data[0].comment,res.data[0].comments_id);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
+
+    deleteComment(commentData, comments_id) {
+        console.log(commentData)
+        axios
+            .patch(`/users/deleteComment/${comments_id}`, {
+                recipe_id: this.props.user.recipeID,
+                comment: commentData
+            })
+            .then(res => {
+                axios
+                    .get(`/users/comment/${this.props.user.recipeID}`)
+                    .then(res => {
+                        this.setState({
+                            comments: res.data,
+                            comment: ""
+                        });
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+                this.setState({
+                    comments_id: false,
+                    comment: ""
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
 
   test = e => {
 
@@ -908,6 +949,7 @@ class SingleRecipe extends React.Component {
                   placeholder="leave your comment"
                   onInput={this.handleInputComment}
                   value={comment}
+                  required
                 />
                 <button className="singleRecipeSubmit">Submit</button>
               </form>
@@ -924,10 +966,16 @@ class SingleRecipe extends React.Component {
                         {comment.comment}{" "}
                         {comment.user_id === this.props.id ? (
                         <button onClick={this.handleClickEdit} id={comment.comments_id} className="singleRecipeCommentEdit">
-                          Edit/Delete
+                          Edit
                         </button>)
                         :
                         ""}
+                        {comment.user_id === this.props.id ? (
+                          <button onClick={this.handleClickDeleteComment} id={comment.comments_id} className="singleRecipeCommentEdit">
+                            Delete
+                          </button>)
+                            :
+                            ""}
                       </p>))
                   : "There are no any comments"}
               </ul>

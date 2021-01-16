@@ -1158,16 +1158,6 @@ function editIngredients(req, res, next) {
 }
 
 function editRecipeComment(req, res, next) {
-  if (req.body.comment.length === 0) {
-    return db
-      .none(`DELETE FROM comments WHERE comments_id=${req.params.commentID}`)
-      .then(data => {
-        res.json("deleted");
-      })
-      .catch(error => {
-        res.json(error);
-      });
-  } else {
     return db
       .none(
         `UPDATE comments
@@ -1181,7 +1171,7 @@ function editRecipeComment(req, res, next) {
       .catch(error => {
         res.json(error);
       });
-  }
+
 }
 
 function deleteIngredients(req, res, next) {
@@ -1215,6 +1205,18 @@ function deleteComments(req, res, next) {
     .catch(err => {
       res.json(err);
     });
+}
+
+
+function deleteRecipeComment(req, res, next) {
+  return db
+      .none(`DELETE FROM comments WHERE comments_id=${req.params.commentID}`)
+      .then(data => {
+        res.json("deleted");
+      })
+      .catch(error => {
+        res.json(error);
+      });
 }
 
 function deleteFavorites(req, res, next) {
@@ -1367,4 +1369,5 @@ module.exports = {
   seenFavoritesChangeByUserId,
   seenFollowersChangeByUserId,
   seenPotluckChangeByUserID,
+  deleteRecipeComment
 };
