@@ -181,6 +181,7 @@ class AddRecipe extends React.Component {
               <div className="formStyle">
                 <h1 className="formHeader">Add a New Recipe! <span>Let Your Everyone Know Whats Cooking</span></h1>
                 <form onSubmit={this.handleSubmit}>
+
                 <div className="formSection"><span>1</span>Recipe Name & ImageUrl</div>
 
                 <div className="formInnerWrap">
@@ -190,7 +191,8 @@ class AddRecipe extends React.Component {
                       name="recipe_name"
                       onChange={this.handleChange}
                       value={recipe_name}
-                      className= "formInput"
+                      className="formInput"
+                      required
                     />
                 </label>
                 <label className="formLabels">ImageURL
@@ -199,7 +201,8 @@ class AddRecipe extends React.Component {
                       name="img"
                       onChange={this.handleChange}
                       value={img}
-                      className= "formInput"
+                      className="formInput"
+                      required
                     />
                 </label>
                 </div>
@@ -214,6 +217,7 @@ class AddRecipe extends React.Component {
                     value={description}
                     placeholder="Tell your friends all about your recipe"
                     onChange={this.handleChange}
+                    required
                   />
                 </label>
                 </div>
@@ -228,6 +232,7 @@ class AddRecipe extends React.Component {
                             value ={ingredient.name}
                             onChange={this.handleIngredientChange(idx)}
                             className="formInput"
+                            required
                          />
                 Amount:
                   <input
@@ -235,16 +240,17 @@ class AddRecipe extends React.Component {
                     name="amount"
                     onChange={this.handleAmountChange(idx)}
                     value={ingredient.amount}
-                    className= "ingAmount formInput"
+                    className="ingAmount formInput"
+                    required
                   />
 
-                Notes
                   <input
                     type="text"
                     name="notes"
                     onChange={this.handleAmountChange(idx)}
                     value={ingredient.notes}
-                    className= "notes formInput"
+                    className="notes formInput"
+                    required
                   />
 
                   <button
@@ -264,6 +270,7 @@ class AddRecipe extends React.Component {
                     </button>
                 </div>
 
+
                 <div className="formSection"><span>4</span>Directions</div>
                 <div className="formInnerWrap">
                 <label className="formLabels">Directions
@@ -274,6 +281,7 @@ class AddRecipe extends React.Component {
                     value={recipe}
                     placeholder="eg(1. Melt two table spoons of butter...)"
                     onChange={this.handleChange}
+                    required
                   />
                 </label>
                 </div>
@@ -302,6 +310,7 @@ class AddRecipe extends React.Component {
                     />
                 </label>
                 </div>
+
                 <div className="formSection"><span>6</span>Share Options
                   <label className="formLabels">
                     {groupDisplay.map(group => (
