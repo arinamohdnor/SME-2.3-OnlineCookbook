@@ -61,8 +61,3 @@ typings/
 .DS_Store
 .DS_Store?
 
-#history
-.history/
-
-#intellij
-.idea/
