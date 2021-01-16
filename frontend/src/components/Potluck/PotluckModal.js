@@ -100,7 +100,7 @@ class PotluckModal extends Component {
         <form onSubmit={this.handleLoginFormSubmit}>
           <input className="input formInput" type="text" placeholder="Potluck Name" onChange={this.handleFormInput} name='potluck_name' required></input>
           <textarea className="input formInput" type="text" placeholder="Description" onChange={this.handleFormInput} name='potluck_description' required></textarea>
-          <input className="input formInput" type="date" placeholder="Date" onChange={this.handleFormInput} name='potluck_date' required></input>
+          <input className="input formInput" type="date" min={new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0]} placeholder="Date" onChange={this.handleFormInput} name='potluck_date' required></input>
           <input className="input formInput" type="time" placeholder="Time" onChange={this.handleFormInput} name='potluck_time' required></input>
           <input className="input formInput" type="text" placeholder="Location" onChange={this.handleFormInput} name='potluck_location' required></input>
           <button className="formButton">Create</button>
