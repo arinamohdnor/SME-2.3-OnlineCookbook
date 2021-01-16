@@ -4,7 +4,6 @@ import Modal from 'react-modal';
 import axios from "axios"
 import { Redirect } from "react-router-dom"
 
-
 const customStyles = {
   content : {
     top                   : '50%',
@@ -20,8 +19,9 @@ const customStyles = {
 Modal.setAppElement('#root')
 
 class PotluckModal extends Component {
+
   constructor(props) {
-    super(props);
+      super(props);
 
     this.state = {
       potluck_name: '',
@@ -78,6 +78,8 @@ class PotluckModal extends Component {
       });
     }
 
+
+
   render() {
     console.log('props user', this.props.user)
     if(this.state.isLoggedIn === true) {
@@ -106,9 +108,9 @@ class PotluckModal extends Component {
         <p> {this.state.message} </p>
       </Modal>
       </div>
-      </div>
+        </div>
     );
-  }
+    }
 }
 
 

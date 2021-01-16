@@ -41,25 +41,27 @@ class Notifications extends Component {
 
   closeModal() {
     this.setState({modalIsOpen: false, message: ''});
-    axios
-      .patch(`/users/seenFavoritesChangeByUserId/${this.props.id}`)
-      .then( () => {
-        this.setState({
-          seenFavorites: false
-        })
-      })
-      .then( () => {
-        axios
-          .patch(`/users/seenFollowersChangeByUserId/${this.props.id}`)
-          .then( () => {
-            this.setState({
-              seenFollowers: false
-            })
-          })
-      })
-      .catch( (err) => {
-        console.log(err);
-      })
+    // removed because this would cause notifications to disappear
+    // axios
+    //   .patch(`/users/seenFavoritesChangeByUserId/${this.props.id}`)
+    //   .then( () => {
+    //     this.setState({
+    //       seenFavorites: false
+    //     })
+    //   })
+    //   .then( () => {
+    //     axios
+    //       .patch(`/users/seenFollowersChangeByUserId/${this.props.id}`)
+    //       .then( () => {
+    //         this.setState({
+    //           seenFollowers: false
+    //         })
+    //       })
+    //   })
+    //   .catch( (err) => {
+    //     console.log(err);
+    //   })
+    //
   }
 
   componentDidMount() {

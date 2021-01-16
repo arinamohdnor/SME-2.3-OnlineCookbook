@@ -320,15 +320,23 @@ class UserProfile extends React.Component {
               </div>
             </div>
             <div className="userProfileSelectContainer">
-              <p className="selectUserRecipeTagline"> See {this.state.user[0].username +"'s" }</p>
-              <div className="select-style">
+              {/* <p className="selectUserRecipeTagline"> See {this.state.user[0].username +"'s" }</p> */}
+              {/* <div className="select-style">
                 <select onChange={this.handleSelectValue}>
                   <option value="mostTop">Top Recipes</option>
                   <option value="mostRecent">Recent Recipes</option>
                   <option value="favorites"> Favorite Recipes</option>
                 </select>
-              </div>
+              </div> */}
+              
             </div>
+            <div class="divBtn text-center">
+              <button class="btnProfile" onClick={this.handleSelectValue} value ="mostTop">Top Recipes</button>
+              <button class="btnProfile" onClick={this.handleSelectValue} value ="mostRecent">Recent Recipes</button>
+              <button class="btnProfile" onClick={this.handleSelectValue} value ="favorites">Favorite Recipes</button>
+            </div>
+            
+            
 
             <Switch>
               <Route
