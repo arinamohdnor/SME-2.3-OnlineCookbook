@@ -261,9 +261,12 @@ function getAllFollowersRecipes(req, res, next) {
     .any(
       `SELECT recipe_name, recipes.recipe_id, description,
          recipe, recipe_name, img, recipe_timestamp,
-         isVegeterian, isVegan
+         isVegeterian, isVegan, users.username, users.user_id
          FROM recipes
-         GROUP BY recipes.recipe_id
+         INNER JOIN users\t
+         ON recipes.user_id = users.user_id
+          WHERE recipes.recipe_id IN (SELECT recipes.recipe_id FROM recipes)
+         GROUP BY recipes.recipe_id, users.user_id
          ORDER BY recipe_timestamp DESC;`
     )
     .then(data => {
