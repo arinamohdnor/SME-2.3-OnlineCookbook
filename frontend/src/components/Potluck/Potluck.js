@@ -282,8 +282,9 @@ class Potluck extends Component {
 
             <button onClick={this.submitInvite}> Submit </button>
             </div>
-   
+                            
             <div className="PotluckDishes">
+              
             <h2> Things to bring </h2>
             <table className="potluckTable">
               <tbody>
