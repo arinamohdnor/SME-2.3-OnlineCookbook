@@ -222,23 +222,23 @@ class AddRecipe extends React.Component {
                 <div className="formInnerWrap">
                     {ingredients.map((ingredient, idx) =>(
                         <div className="ingredients">
-                        <label className="formLabels"> <b>{`Ingredient ${idx + 1}`}</b>
+                            <label className="formLabels"><b>{`Ingredient ${idx + 1}`}</b></label>
                         <input
                             list="ingredients"
                             value ={ingredient.name}
                             onChange={this.handleIngredientChange(idx)}
                             className="formInput"
                          />
-                Amount:
-                  <input
-                    type="text"
-                    name="amount"
-                    onChange={this.handleAmountChange(idx)}
-                    value={ingredient.amount}
-                    className= "ingAmount formInput"
-                  />
+                        <label className="formLabels">Amount</label>
+                      <input
+                        type="text"
+                        name="amount"
+                        onChange={this.handleAmountChange(idx)}
+                        value={ingredient.amount}
+                        className= "ingAmount formInput"
+                      />
 
-                Notes
+                        <label className="formLabels"><b>Notes </b></label>
                   <input
                     type="text"
                     name="notes"
@@ -252,7 +252,6 @@ class AddRecipe extends React.Component {
                     className="xButton"
                     onClick={this.handleRemoveIngredient(idx)}>x
                   </button>
-                  </label>
                   </div>
                     ))}
 
@@ -301,22 +300,6 @@ class AddRecipe extends React.Component {
                       onChange={this.handleChecked}
                     />
                 </label>
-                </div>
-                <div className="formSection"><span>6</span>Share Options
-                  <label className="formLabels">
-                    {groupDisplay.map(group => (
-                      <label key={Math.random()}>
-                        {group.group_name}
-                        <input
-                          name={group.group_name}
-                          value={group.group_id}
-                          onChange={this.handleSharing}
-                          checked={shareOptions.includes(group.group_id)}
-                          type='checkbox'
-                          />
-                      </label>
-                    ))}
-                  </label>
                 </div>
                 <button className="formButton">Submit</button>
                 </form>
