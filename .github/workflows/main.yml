@@ -76,5 +76,5 @@ jobs:
         run: heroku container:push -a sme-cookbook web
       - name: Release
         env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: heroku container:release -a sme-cookbook web
