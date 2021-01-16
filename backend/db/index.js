@@ -6,12 +6,8 @@ var local = "postgres://postgres:root@localhost:5432/cookbookdb";
 var db;
 
 if(connectionString===undefined){
-    db = new pgp({
-        local,
-        ssl:{
-            rejectUnauthorized: false
-        }
-    });
+    console.log("local")
+    db = pgp(local);
 }
 else{
     console.log("heroku is connected")
