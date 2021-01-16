@@ -244,7 +244,6 @@ class AddRecipe extends React.Component {
                     required
                   />
 
-                Notes
                   <input
                     type="text"
                     name="notes"
