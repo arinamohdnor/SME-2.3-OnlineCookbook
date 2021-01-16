@@ -253,6 +253,7 @@ class SingleRecipe extends React.Component {
       async function runLoop() {
         var limit = 0;
         var running = 20;
+        
 
         while (limit == 0) {
           // line 249 sampai line 258 ni patutnya bawak masuk kat line 271, tapi since dia punya value takleh bawa sampai keluar 'then', itu problem tu, if kau boleh figure out cane nak bawa keluar variable updated dari 'then' tu kira settle dah
