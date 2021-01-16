@@ -67,7 +67,11 @@ class Potluck extends Component {
   }
 
   addNewItemToList = e => {
-    axios
+    if(this.state.suggestedItem == ""){
+      document.getElementById("suggestedItem_error").innerHTML = "Required";
+    } else {
+      document.getElementById("suggestedItem_error").innerHTML = "";
+      axios
       .post(`/users/addPotluckItem`, {
         potluck_id: this.props.potluckID["potluckID"],
         item_name: this.state.suggestedItem
@@ -87,6 +91,8 @@ class Potluck extends Component {
             });
           })
       );
+    }
+    
   };
 
   handleFormInput = e => {
@@ -276,8 +282,9 @@ class Potluck extends Component {
 
             <button onClick={this.submitInvite}> Submit </button>
             </div>
-   
+                            
             <div className="PotluckDishes">
+              
             <h2> Things to bring </h2>
             <table className="potluckTable">
               <tbody>
@@ -324,8 +331,10 @@ class Potluck extends Component {
               name="suggestedItem"
               value={this.state.suggestedItem}
               onChange={this.handleFormInput}
-            />
+              required
+            ></input>
             <button onClick={this.addNewItemToList}> Add new item </button>
+            <p id="suggestedItem_error"></p>
           </div>
         </div>
         </div>
