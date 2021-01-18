@@ -310,25 +310,6 @@ class AddRecipe extends React.Component {
                     />
                 </label>
                 </div>
-<<<<<<< HEAD
-                <div className="formSection"><span>6</span>Share Options
-                  <label className="formLabels">
-                    {groupDisplay.map(group => (
-                      <label key={Math.random()}>
-                        {group.group_name}
-                        <input
-                          name={group.group_name}
-                          value={group.group_id}
-                          onChange={this.handleSharing}
-                          checked={shareOptions.includes(group.group_id)}
-                          type='checkbox'
-                          />
-                      </label>
-                    ))}
-                  </label>
-                </div>
-=======
->>>>>>> main
                 <button className="formButton">Submit</button>
                 </form>
               </div>
