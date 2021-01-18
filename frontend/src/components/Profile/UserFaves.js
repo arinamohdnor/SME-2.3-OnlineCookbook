@@ -37,7 +37,7 @@ class UserFaves extends React.Component{
     const { favoriteRecipes } = this.state
     if(this.props){
       return(
-        <div>
+        <div className="userProfileAllRecipes">
             {favoriteRecipes.map(recipe =>(
               <RecipeBox recipe={recipe} key={Math.random()} />
             ))}

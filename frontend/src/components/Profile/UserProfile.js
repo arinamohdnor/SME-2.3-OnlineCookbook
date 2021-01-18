@@ -285,6 +285,10 @@ class UserProfile extends React.Component {
   render() {
     const { allusersRecipes, canFollow } = this.state;
     if (this.props.user && this.state.user) {
+      if(this.state.user[0].user_img == null){
+        this.state.user[0].user_img = 'https://openclipart.org/download/247324/abstract-user-flat-1.svg';
+      }
+      console.log(this.state.user[0].user_img);
       return (
         <div>
           <Searchbar user={this.props.user} />
