@@ -2,8 +2,8 @@ import React from "react"
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import Searchbar from "../Search/SearchBar";
-
 class UserEdit extends React.Component{
+
   constructor(props){
     super(props)
 
@@ -16,6 +16,18 @@ class UserEdit extends React.Component{
       imageInput: '',
       message: ''
     }
+
+    if(!this.props.user){
+      axios
+          .get('/users')
+          .then(res => {
+            console.log(res.data[0]);
+            this.setState({ user: res.data[0]});
+          })
+          .catch(error => {
+            console.log('error in edit page')
+          })
+    }
   }
 
   componentDidMount() {
@@ -23,7 +35,12 @@ class UserEdit extends React.Component{
       axios
         .get('/users')
         .then(res => {
-          this.setState({ user: res.data[0]})
+          this.setState({ user: res.data[0]});
+          console.log(res.data[0].username);
+          this.state.usernameInput = res.data[0].username;
+          this.state.firstnameInput = res.data[0].first_name;
+          this.state.lastnameInput = res.data[0].last_name;
+          this.state.emailInput = res.data[0].email;
         })
         .catch(error => {
           console.log('error in edit page')
@@ -51,11 +68,6 @@ class UserEdit extends React.Component{
       })
         .then(() => {
           this.setState({
-            usernameInput: '',
-            firstnameInput: '',
-            lastnameInput: '',
-            emailInput: '',
-            imageInput: '',
             message: 'Changes done!'
           })
         })
@@ -72,6 +84,7 @@ class UserEdit extends React.Component{
             <div className="formStyle">
             <h1 className="formHeader">Edit Profile Information for {user.username}</h1>
 
+            <form onSubmit={this.handleSubmit}>
 
           <div className="formSection">
               <div className="formInnerWrap">
@@ -79,11 +92,13 @@ class UserEdit extends React.Component{
                           New Username: {" "}
                           <input
                             type='text'
-                            value={usernameInput}
                             name='usernameInput'
                             onChange={this.userInput}
+                            value={usernameInput}
+                            className="formInput"
+                            required
                             />
-                        </label>
+                      </label>
                 </div>
             </div>
 
@@ -93,12 +108,14 @@ class UserEdit extends React.Component{
                 <label className="formlabels">
                     New Profile Image: {" "}
                     <input
-                      type='text'
-                      value={imageInput}
+                      type='file'
                       name='imageInput'
                       onChange={this.userInput}
+                      value={imageInput}
+                      className="formInput"
+                      required
                       />
-                  </label>
+                </label>
               </div>
             </div>
 
@@ -109,9 +126,11 @@ class UserEdit extends React.Component{
                   New First Name: {" "}
                   <input
                     type='text'
-                    value={firstnameInput}
                     name='firstnameInput'
                     onChange={this.userInput}
+                    value={firstnameInput}
+                    className="formInput"
+                    required
                     />
                 </label>
               </div>
@@ -123,10 +142,12 @@ class UserEdit extends React.Component{
                 <label className="formlabels">
                   New Last Name: {" "}
                   <input
-                    type='text'
-                    value={lastnameInput}
+                    type='text'   
                     name='lastnameInput'
                     onChange={this.userInput}
+                    value={lastnameInput}
+                    className="formInput"
+                    required
                     />
                 </label>
               </div>
@@ -139,10 +160,11 @@ class UserEdit extends React.Component{
                   <label className="formlabels">
                     New Email: {" "}
                     <input
-                      type='text'
-                      value={emailInput}
+                      type='email'
                       name='emailInput'
                       onChange={this.userInput}
+                      value={emailInput}
+                      required
                       />
                   </label>
                 </div>
@@ -150,9 +172,9 @@ class UserEdit extends React.Component{
             </div>
 
 
-              {message}
             <button onClick={this.submitEdit} className="formButton">Submit Changes</button>
             <Link to={path}>Back to Profile</Link>
+            </form>
             </div>
           </div>
         )

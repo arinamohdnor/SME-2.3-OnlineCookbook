@@ -73,7 +73,7 @@ class SingleRecipe extends React.Component {
         //     testVarA = testVarA + 1;
         //     console.log(testVarA);
         //     // test();
-        //   } else {            
+        //   } else {
         //     console.log(testVarDifferences);
         //     console.log(testVar);
         //   }
@@ -98,10 +98,10 @@ class SingleRecipe extends React.Component {
             res2.data.foods[0].nf_sugars = 0;
           }
           $("#nutritional_label").html("" +
-          
+
           "<section class='performance-facts' style='width:100%; margin-left:0; background-color: white'>" +
             "<header class='performance-facts__header'>" +
-            " <h1 class='performance-facts__title'>Nutrition Facts - " + res.data[0].recipe_name + "</h1> " +  
+            " <h1 class='performance-facts__title'>Nutrition Facts - " + res.data[0].recipe_name + "</h1> " +
             " <p>Serving Size " + res2.data.foods[0].serving_qty + " cup (about " + res2.data.foods[0].serving_weight_grams + "g)" +
             "</header>" +
             "<table class='performance-facts__table'>" +
@@ -226,7 +226,7 @@ class SingleRecipe extends React.Component {
             "</p>" +
             
             "</section>");
-          
+
             // res.data.foods[0].nf_calories);
         // })
 
@@ -253,7 +253,6 @@ class SingleRecipe extends React.Component {
       async function runLoop() {
         var limit = 0;
         var running = 20;
-        
 
         while (limit == 0) {
           // line 249 sampai line 258 ni patutnya bawak masuk kat line 271, tapi since dia punya value takleh bawa sampai keluar 'then', itu problem tu, if kau boleh figure out cane nak bawa keluar variable updated dari 'then' tu kira settle dah
@@ -563,6 +562,7 @@ class SingleRecipe extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    console.log(this.state.comments_id);
     if (this.state.comments_id) {
       axios
         .patch(`/users/editComment/${this.state.comments_id}`, {
@@ -653,6 +653,46 @@ class SingleRecipe extends React.Component {
         console.log(err);
       });
   };
+
+    handleClickDeleteComment = e => {
+        axios
+            .get(`/users/getsinglecomment/${e.target.id}`)
+            .then(res => {
+            this.deleteComment(res.data[0].comment,res.data[0].comments_id);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
+
+    deleteComment(commentData, comments_id) {
+        console.log(commentData)
+        axios
+            .patch(`/users/deleteComment/${comments_id}`, {
+                recipe_id: this.props.user.recipeID,
+                comment: commentData
+            })
+            .then(res => {
+                axios
+                    .get(`/users/comment/${this.props.user.recipeID}`)
+                    .then(res => {
+                        this.setState({
+                            comments: res.data,
+                            comment: ""
+                        });
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+                this.setState({
+                    comments_id: false,
+                    comment: ""
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
 
   test = e => {
 
@@ -909,6 +949,7 @@ class SingleRecipe extends React.Component {
                   placeholder="leave your comment"
                   onInput={this.handleInputComment}
                   value={comment}
+                  required
                 />
                 <button className="singleRecipeSubmit">Submit</button>
               </form>
@@ -925,10 +966,16 @@ class SingleRecipe extends React.Component {
                         {comment.comment}{" "}
                         {comment.user_id === this.props.id ? (
                         <button onClick={this.handleClickEdit} id={comment.comments_id} className="singleRecipeCommentEdit">
-                          Edit/Delete
+                          Edit
                         </button>)
                         :
                         ""}
+                        {comment.user_id === this.props.id ? (
+                          <button onClick={this.handleClickDeleteComment} id={comment.comments_id} className="singleRecipeCommentEdit">
+                            Delete
+                          </button>)
+                            :
+                            ""}
                       </p>))
                   : "There are no any comments"}
               </ul>

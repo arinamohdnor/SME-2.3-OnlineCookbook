@@ -80,4 +80,6 @@ router.patch('/seenFavoritesChangeByUserId/:userID', loginRequired, db.seenFavor
 router.patch('/seenFollowersChangeByUserId/:userID', loginRequired, db.seenFollowersChangeByUserId);
 router.patch('/seenPotluckChangeByUserID/:userID/:potluckID', loginRequired, db.seenPotluckChangeByUserID);
 
+//delete request
+router.patch('/deleteComment/:commentID', loginRequired, db.deleteRecipeComment)
 module.exports = router;

@@ -67,7 +67,11 @@ class Potluck extends Component {
   }
 
   addNewItemToList = e => {
-    axios
+    if(this.state.suggestedItem == ""){
+      document.getElementById("suggestedItem_error").innerHTML = "Required";
+    } else {
+      document.getElementById("suggestedItem_error").innerHTML = "";
+      axios
       .post(`/users/addPotluckItem`, {
         potluck_id: this.props.potluckID["potluckID"],
         item_name: this.state.suggestedItem
@@ -87,6 +91,8 @@ class Potluck extends Component {
             });
           })
       );
+    }
+    
   };
 
   handleFormInput = e => {
@@ -220,7 +226,7 @@ class Potluck extends Component {
         <div className="PotluckInfo" >
         <PotluckModal className="potluckModalEventPage"/>
           <h2> {potluck_info.potluck_name} </h2>
-          <h2> <img className="potluckCalendarImage" src="https://png.icons8.com/metro/1600/calendar.png"/> {potluck_info.potluck_date} </h2>
+                        <h2> <img className="potluckCalendarImage" src="https://www.pngkey.com/png/full/109-1094594_calendar-clipart-png-transparent-calendar-icon-transparent-background.png"/> {potluck_info.potluck_date} </h2>
           <h2> <img className="potluckTimeImage" src="http://cdn.onlinewebfonts.com/svg/img_374773.png" /> {potluck_info.potluck_time} </h2>
           <h2> <img className="potluckLocationImage" src="https://d30y9cdsu7xlg0.cloudfront.net/png/11205-200.png" /> {potluck_info.potluck_location} </h2>
           <h2> Organized by {potluck_info.username} </h2>
@@ -276,8 +282,9 @@ class Potluck extends Component {
 
             <button onClick={this.submitInvite}> Submit </button>
             </div>
-   
+                            
             <div className="PotluckDishes">
+              
             <h2> Things to bring </h2>
             <table className="potluckTable">
               <tbody>
@@ -324,8 +331,10 @@ class Potluck extends Component {
               name="suggestedItem"
               value={this.state.suggestedItem}
               onChange={this.handleFormInput}
-            />
+              required
+            ></input>
             <button onClick={this.addNewItemToList}> Add new item </button>
+            <p id="suggestedItem_error"></p>
           </div>
         </div>
         </div>

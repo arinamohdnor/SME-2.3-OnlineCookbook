@@ -4,7 +4,6 @@ import Modal from 'react-modal';
 import axios from "axios"
 import { Redirect } from "react-router-dom"
 
-
 const customStyles = {
   content : {
     top                   : '50%',
@@ -20,8 +19,9 @@ const customStyles = {
 Modal.setAppElement('#root')
 
 class PotluckModal extends Component {
+
   constructor(props) {
-    super(props);
+      super(props);
 
     this.state = {
       potluck_name: '',
@@ -78,6 +78,8 @@ class PotluckModal extends Component {
       });
     }
 
+
+
   render() {
     console.log('props user', this.props.user)
     if(this.state.isLoggedIn === true) {
@@ -96,19 +98,19 @@ class PotluckModal extends Component {
       <button className="xButton" onClick={this.closeModal}>x</button>
         <h2 ref={subtitle => this.subtitle = subtitle}>Create a new potluck</h2>
         <form onSubmit={this.handleLoginFormSubmit}>
-          <input className="input formInput" type="text" placeholder="Potluck Name" onChange={this.handleFormInput} name='potluck_name'></input>
-          <textarea className="input formInput" type="text" placeholder="Description" onChange={this.handleFormInput} name='potluck_description'></textarea>
-          <input className="input formInput" type="date" placeholder="Date" onChange={this.handleFormInput} name='potluck_date'></input>
-          <input className="input formInput" type="time" placeholder="Time" onChange={this.handleFormInput} name='potluck_time'></input>
-          <input className="input formInput" type="text" placeholder="Location" onChange={this.handleFormInput} name='potluck_location'></input>
+          <input className="input formInput" type="text" placeholder="Potluck Name" onChange={this.handleFormInput} name='potluck_name' required></input>
+          <textarea className="input formInput" type="text" placeholder="Description" onChange={this.handleFormInput} name='potluck_description' required></textarea>
+          <input className="input formInput" type="date" min={new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0]} placeholder="Date" onChange={this.handleFormInput} name='potluck_date' required></input>
+          <input className="input formInput" type="time" placeholder="Time" onChange={this.handleFormInput} name='potluck_time' required></input>
+          <input className="input formInput" type="text" placeholder="Location" onChange={this.handleFormInput} name='potluck_location' required></input>
           <button className="formButton">Create</button>
         </form>
         <p> {this.state.message} </p>
       </Modal>
       </div>
-      </div>
+        </div>
     );
-  }
+    }
 }
 
 

@@ -231,13 +231,12 @@ class Searchbar extends Component {
           >
             Add Recipe
           </a>
-      <a
-              id="contact"
-              className="menu-item"
-              href={`/cb/potlucks`}
+          <Link
+            to='/cb/potlucks'
+            className="menu-item"
             >
-              My potlucks
-            </a>
+            My Potlucks
+          </Link>
           <a
           id="contact"
           className="menu-item"
