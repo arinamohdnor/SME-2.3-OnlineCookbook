@@ -1,0 +1,16 @@
+{
+  "name": "CookBook",
+  "description": "For SME Cookbook",
+  "website": "http://sme-cookbook.heroku.com",
+  "success_url": "/",
+  "addons": [
+    "heroku-postgresql:hobby-dev"
+  ],
+  "environments": {
+    "review": {
+      "addons": [
+        "heroku-postgresql:hobby-dev"
+      ]
+    }
+  }
+}
