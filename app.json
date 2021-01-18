@@ -3,6 +3,13 @@
   "description": "For SME Cookbook",
   "website": "http://sme-cookbook.heroku.com",
   "success_url": "/",
+  "scripts": {
+    "start": "cd backend && npm install && node ./bin/www",
+    "heroku-postbuild": "cd frontend && npm install --only=dev && npm install && npm run build"
+  },
+  "dependencies": {
+    "pg": "^8.5.1"
+  },
   "addons": [
     "heroku-postgresql:hobby-dev"
   ],
