@@ -96,7 +96,7 @@ class UserEdit extends React.Component{
                 <label className="formlabels">
                     New Profile Image: {" "}
                     <input
-                      type='image'
+                      type='file'
                       name='imageInput'
                       onChange={this.userInput}
                       value={imageInput}
