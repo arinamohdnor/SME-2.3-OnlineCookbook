@@ -19,10 +19,10 @@ class AddRecipe extends React.Component {
       fork: false,
       ingredientsList: ["","eggs","chicken","potatoes"],
       redirect: false,
-      recipe_id: "",
       groups: [],
       shareOptions: []
     }
+      this.handleChangeTitle = this.handleChangeTitle.bind(this);
   }
 
   getGroupFollows = () =>{
@@ -49,6 +49,12 @@ class AddRecipe extends React.Component {
     this.setState({
         [e.target.name]: e.target.value
     })
+  }
+
+  handleChangeTitle(e){
+        if(e.target.value.match("^[a-zA-Z ]*$")!=null) {
+            this.setState({recipe_name: e.target.value});
+        }
   }
 
   handleIngredientChange = (idx) => (e) => {
@@ -174,6 +180,7 @@ class AddRecipe extends React.Component {
              if(redirect) {
               return <Redirect to={`/cb/${this.props.user.user_id}/${recipe_id}`}/>
              }
+
         return(
             <div>
               <SearchBar user={this.props.user} />
@@ -181,7 +188,6 @@ class AddRecipe extends React.Component {
               <div className="formStyle">
                 <h1 className="formHeader">Add a New Recipe! <span>Let Your Everyone Know Whats Cooking</span></h1>
                 <form onSubmit={this.handleSubmit}>
-
                 <div className="formSection"><span>1</span>Recipe Name & ImageUrl</div>
 
                 <div className="formInnerWrap">
@@ -189,10 +195,10 @@ class AddRecipe extends React.Component {
                     <input
                       type= "text"
                       name="recipe_name"
-                      onChange={this.handleChange}
+                      onChange={this.handleChangeTitle}
+
                       value={recipe_name}
-                      className="formInput"
-                      required
+                      className= "formInput"
                     />
                 </label>
                 <label className="formLabels">ImageURL
@@ -201,8 +207,7 @@ class AddRecipe extends React.Component {
                       name="img"
                       onChange={this.handleChange}
                       value={img}
-                      className="formInput"
-                      required
+                      className= "formInput"
                     />
                 </label>
                 </div>
@@ -217,7 +222,6 @@ class AddRecipe extends React.Component {
                     value={description}
                     placeholder="Tell your friends all about your recipe"
                     onChange={this.handleChange}
-                    required
                   />
                 </label>
                 </div>
@@ -232,7 +236,6 @@ class AddRecipe extends React.Component {
                             value ={ingredient.name}
                             onChange={this.handleIngredientChange(idx)}
                             className="formInput"
-                            required
                          />
                         <label className="formLabels">Amount:</label>
                       <input
@@ -250,8 +253,7 @@ class AddRecipe extends React.Component {
                     name="notes"
                     onChange={this.handleAmountChange(idx)}
                     value={ingredient.notes}
-                    className="notes formInput"
-                    required
+                    className= "notes formInput"
                   />
 
                   <button
@@ -280,7 +282,6 @@ class AddRecipe extends React.Component {
                     value={recipe}
                     placeholder="eg(1. Melt two table spoons of butter...)"
                     onChange={this.handleChange}
-                    required
                   />
                 </label>
                 </div>
