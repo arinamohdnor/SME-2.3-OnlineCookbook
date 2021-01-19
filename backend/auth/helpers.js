@@ -10,14 +10,13 @@ function createUser(req) {
   const salt = bcrypt.genSaltSync();
   const hash = bcrypt.hashSync(req.body.password, salt);
   return db.none(
-    "INSERT INTO users (user_id, username, password, email, first_name, last_name, user_img) VALUES (DEFAULT, ${username}, ${password}, ${email}, ${first_name}, ${last_name}, ${user_img})",
+    "INSERT INTO users (user_id, username, password, email, first_name, last_name) VALUES (DEFAULT, ${username}, ${password}, ${email}, ${first_name}, ${last_name})",
     {
       username: req.body.username,
       password: hash,
       email: req.body.email,
       first_name: req.body.first_name,
-      last_name: req.body.last_name,
-      user_img: req.body.user_img,
+      last_name: req.body.last_name
     }
   );
 }
