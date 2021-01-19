@@ -9,9 +9,7 @@ import UserFaves from "./UserFaves";
 import CreateGroup from "../Modals/CreateGroup";
 import "./UserProfile.css";
 import Searchbar from "../Search/SearchBar";
-// import AddRecipe from './SingleRecipe/AddRecipe'
 import Notifications from "../Modals/Notifications";
-
 
 
 
@@ -283,18 +281,32 @@ class UserProfile extends React.Component {
   }
 
   render() {
-    const { allusersRecipes, canFollow } = this.state;
+    const { allusersRecipes, canFollow, url } = this.state;
     if (this.props.user && this.state.user) {
+
+      const image = require('../../images/uploads/' + this.state.user[0].user_img);
+
+      const imageDefault = require('../../images/uploads/default.png');
+
+
+      const Img = ({ success }) => (
+        <img
+          className="userProfileImage"
+          src={success ? imageDefault  : image}
+        />
+      );
+      
       return (
         <div>
           <Searchbar user={this.props.user} />
           <div className="userProfileContainer">
             <div className="userProfileHeading">
-              <img
-                src={this.state.user[0].user_img}
+              {/* <img
+                src={image}
                 className="userProfileImage"
                 onClick={this.updateProfileImage}
-              />
+              /> */}
+              <Img></Img>
               <h1 className="userProfileName"> {this.state.user[0].username} </h1>
               <div className="userProfileFollowButtons">
                 <FollowButtons
