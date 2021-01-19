@@ -72,14 +72,15 @@ class RegisterUser extends Component {
   handleLoginFormSubmit = e => {
     e.preventDefault();
 
-    const { username, password, email, confirmpassword, firstname,  lastname } = this.state;
+    const { username, password, email, confirmpassword, firstname,  lastname, user_img } = this.state;
     axios
       .post("/users/register", {
           username: username,
           password: password,
           email: email,
           first_name: firstname,
-          last_name: lastname
+          last_name: lastname,
+          user_img: "default.png"
       })
       .then(() => {
         axios

@@ -13,15 +13,17 @@ class UserEdit extends React.Component{
       firstnameInput: '',
       lastnameInput: '',
       emailInput: '',
-      imageInput: '',
+      selectedFile: null,
+      selectedFileName: '',
       message: ''
     }
+    this.fileSelectedHandler = this.fileSelectedHandler.bind(this);
+    this.onChange = this.onChange.bind(this);
 
     if(!this.props.user){
       axios
           .get('/users')
           .then(res => {
-            console.log(res.data[0]);
             this.setState({ user: res.data[0]});
           })
           .catch(error => {
@@ -36,7 +38,6 @@ class UserEdit extends React.Component{
         .get('/users')
         .then(res => {
           this.setState({ user: res.data[0]});
-          console.log(res.data[0].username);
           this.state.usernameInput = res.data[0].username;
           this.state.firstnameInput = res.data[0].first_name;
           this.state.lastnameInput = res.data[0].last_name;
@@ -54,17 +55,50 @@ class UserEdit extends React.Component{
     })
   }
 
+  onChange(e) {
+    this.setState({file:e.target.files[0]});
+}
+
+  fileSelectedHandler = event => {
+
+      this.setState({
+        selectedFile: event.target.files[0],
+        selectedFileName: event.target.files[0].name,
+        loaded: 0,
+      })
+  }
+  
+
 
   submitEdit = () =>{
-    const { user, usernameInput, firstnameInput, lastnameInput, imageInput, emailInput, relogin } = this.state
+    const { user, user_id, usernameInput, firstnameInput, lastnameInput, imageInput, emailInput, relogin, selectedFileName } = this.state
+
+    console.log(selectedFileName);
+
+    const data = new FormData();
+    data.append('file', this.state.selectedFile);
+    data.append('usernameInput', usernameInput);
+    data.append('firstnameInput', firstnameInput);
+    data.append('lastnameInput', lastnameInput);
+    data.append('emailInput', emailInput);
+    const config = {
+      headers: {
+          'content-type': 'multipart/form-data'
+      }
+  };
+    axios.patch(`/users/edit/${user.user_id}`, data, config)      
+      .then(res => {
+        console.log(res.statusText)
+      })
 
       axios
-        .patch(`/users/edit/${user.user_id}`,{
+        .patch(`/users/edit/${user.user_id}`, {
           username: usernameInput ? usernameInput : user.username,
           first_name: firstnameInput ? firstnameInput: user.first_name,
           last_name: lastnameInput ? lastnameInput : user.last_name,
-          imageInput: imageInput ? imageInput : user.user_img,
-          email: emailInput ? emailInput : user.email
+          imageInput: selectedFileName ? selectedFileName : user.user_img,
+          email: emailInput ? emailInput : user.email,
+          user_id: user.user_id ? user.user_id : user.user_id
       })
         .then(() => {
           this.setState({
@@ -84,7 +118,7 @@ class UserEdit extends React.Component{
             <div className="formStyle">
             <h1 className="formHeader">Edit Profile Information for {user.username}</h1>
 
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit} encType="multipart/form-data">
 
           <div className="formSection">
               <div className="formInnerWrap">
@@ -108,10 +142,9 @@ class UserEdit extends React.Component{
                 <label className="formlabels">
                     New Profile Image: {" "}
                     <input
-                      type='image'
-                      name='imageInput'
-                      onChange={this.userInput}
-                      value={imageInput}
+                      type='file'
+                      name='file'
+                      onChange={this.fileSelectedHandler}
                       className="formInput"
                       required
                       />
