@@ -1,5 +1,6 @@
 var pgp = require("pg-promise")({});
 require('dotenv').config();
+var connectionString = process.env.DATABASE_URL;
 // var connectionString = "postgres://localhost/cookbookdb";
 var local = "postgres://postgres:root@localhost:5432/cookbookdb";
 var db;
