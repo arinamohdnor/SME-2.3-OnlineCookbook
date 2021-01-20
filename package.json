@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
   "scripts": {
     "start": "cd backend && npm install && node ./bin/www",
@@ -8,14 +7,3 @@
     "pg": "^8.5.1"
   }
 }
-=======
-{
-  "scripts": {
-    "start": "cd backend && npm install && node ./bin/www",
-    "heroku-postbuild": "cd frontend && npm install --only=dev && npm install && npm run build"
-  },
-  "dependencies": {
-    "pg": "^8.5.1"
-  }
-}
->>>>>>> parent of 947ab66... Revert "Try resetting branch to fatihah's changes"
