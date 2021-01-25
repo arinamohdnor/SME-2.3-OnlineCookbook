@@ -821,6 +821,10 @@ class SingleRecipe extends React.Component {
       })
   }
 
+  addDefaultSrc(ev){
+    ev.target.src = 'https://eatforum.org/content/uploads/2018/05/table_with_food_top_view_900x700.jpg';
+  }
+
 
   render() {
 
@@ -889,7 +893,7 @@ class SingleRecipe extends React.Component {
               </div>
             </div>
             <div className="singleRecipeRight">
-              <img src={img} alt="recipe_image" className="singleRecipeImage" />
+              <img src={img} alt="recipe_image" onError={this.addDefaultSrc} className="singleRecipeImage" />
             </div>
             <div className="singleRecipeButtons">
                 <div class="mainButtons">
@@ -956,7 +960,7 @@ class SingleRecipe extends React.Component {
 
               <h3 className="singleRecipeIngredientsTitle"> Comments </h3>
               <ul className="commentList" type="none">
-                {comments
+                {comments.length !== 0
                   ? comments.map(comment => (
                       <p key={Math.random()}>
                         <strong>
