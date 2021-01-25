@@ -34,6 +34,9 @@ class Feed extends React.Component {
       });
   }
 
+  addDefaultSrc(ev){
+    ev.target.src = 'https://eatforum.org/content/uploads/2018/05/table_with_food_top_view_900x700.jpg';
+  }
 
   render() {
     return (
@@ -65,7 +68,7 @@ class Feed extends React.Component {
                         to={`/cb/${elem.username}/${elem.recipe_id}`}
                         className="feedLink"
                       >
-                        <img className="feedImage" src={elem.img} />
+                        <img className="feedImage" src={elem.img} onError={this.addDefaultSrc}/>
                       </Link>
                       <div className="feedBoxFooter">
                       <Link
