@@ -23,10 +23,6 @@ class RecipeBox extends React.Component{
     }
   }
 
-    addDefaultSrc(ev){
-        ev.target.src = 'https://eatforum.org/content/uploads/2018/05/table_with_food_top_view_900x700.jpg';
-    }
-
   render(){
     // const {recipe} = this.props;
     const { recipe_name, img,
@@ -36,7 +32,7 @@ class RecipeBox extends React.Component{
     return(
       <div className="recipeBox">
         <h3>{recipe_name}</h3>
-        {this.state.clickable === 'false' ?  <img src={img} onError={this.addDefaultSrc} className="recipeImg" alt="recipeImg" style={styles.img} />: <Link to={`/cb/${user_id}/${recipe_id}`}> <img src={img} className="recipeImg" alt="recipeImg" style={styles.img} /></Link>}
+        {this.state.clickable === 'false' ?  <img src={img} className="recipeImg" alt="recipeImg" style={styles.img} />: <Link to={`/cb/${user_id}/${recipe_id}`}> <img src={img} className="recipeImg" alt="recipeImg" style={styles.img} /></Link>}
        
         <div className="recipeInfo">
         <h4>Chef {username}</h4>
