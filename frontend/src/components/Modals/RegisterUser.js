@@ -99,7 +99,7 @@ class RegisterUser extends Component {
       })
       .catch(err => {
         this.setState({
-          message: `Error registering. ${err.response.data.detail}`,
+          message: `The username has already exists.`,
         });
       });
   }

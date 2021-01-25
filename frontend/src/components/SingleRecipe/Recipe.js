@@ -900,15 +900,15 @@ class SingleRecipe extends React.Component {
                 { this.props.id === user_id?
                   <Link to={`/cb/feed`}><button id="delete_recipe" className="singleRecipeSubmit" onClick={this.handleClickDelete}>Delete Recipe</button></Link>: ""
                 }
-                { this.props.id !== user_id? (fork?
+                {/* { this.props.id !== user_id? (fork?
                   <button className="singleRecipeSubmit" onClick={this.handleSubmitFork}>Fork</button>
-                : ""): ""}
+                : ""): ""} */}
                 </div>
               <div id="nutritional_label"></div>
-                <div>
+                {/* <div>
                 { forkedFrom? <p>forked from {forkedFrom}</p>: ""} <br/>
                 { forkList.length !== 0 ? <ForkedBy forks={forkList} /> : ''}
-                </div>
+                </div> */}
 
             </div>
 

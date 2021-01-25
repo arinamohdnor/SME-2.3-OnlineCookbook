@@ -225,7 +225,7 @@ class Potluck extends Component {
         <div className="PotluckContainer">
         <div className="PotluckInfo" >
         <PotluckModal className="potluckModalEventPage"/>
-          <h2> {potluck_info.potluck_name} </h2>
+          <h2 style={{ fontWeight: 'bold' }}> {potluck_info.potluck_name} </h2>
                         <h2> <img className="potluckCalendarImage" src="https://www.pngkey.com/png/full/109-1094594_calendar-clipart-png-transparent-calendar-icon-transparent-background.png"/> {potluck_info.potluck_date} </h2>
           <h2> <img className="potluckTimeImage" src="http://cdn.onlinewebfonts.com/svg/img_374773.png" /> {potluck_info.potluck_time} </h2>
           <h2> <img className="potluckLocationImage" src="https://d30y9cdsu7xlg0.cloudfront.net/png/11205-200.png" /> {potluck_info.potluck_location} </h2>

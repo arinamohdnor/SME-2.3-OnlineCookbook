@@ -302,13 +302,13 @@ class AddRecipe extends React.Component {
                       onChange={this.handleChecked}
                     />
                 </label>
-                Do you want to share your recipe with your friend?<label className="formLabels">Fork
+                {/* Do you want to share your recipe with your friend?<label className="formLabels">Fork
                     <input type="checkbox"
                       name="fork"
                       checked={fork}
                       onChange={this.handleChecked}
                     />
-                </label>
+                </label> */}
                 </div>
                 <button className="formButton">Submit</button>
                 </form>

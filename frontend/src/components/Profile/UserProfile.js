@@ -308,14 +308,14 @@ class UserProfile extends React.Component {
                   follow={this.handleUserFollow}
                   unfollow={this.handleUserUnfollow}
                 />
-                {this.props.user.user_id === parseInt(this.props.id) ? (
+                {/* {this.props.user.user_id === parseInt(this.props.id) ? (
                   <CreateGroup
                     owner={this.props.user.user_id}
                     id={this.props.id}
                   />
-                ) : (
+                ) : ( */}
                   <div />
-                )}
+                {/* )} */}
               </div>
               <div className="userProfileFollowInfo">
               {this.state.allUserRecipesUnchanged.length ===1 ? <h4> {this.state.allUserRecipesUnchanged.length} recipe</h4> : <h4>{this.state.allUserRecipesUnchanged.length} recipes</h4>}
